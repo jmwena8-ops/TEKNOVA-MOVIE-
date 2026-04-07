@@ -1,7 +1,7 @@
 <h1 align="center">🎬 TEKNOVA MOVIE 🍿</h1>
 
 <p align="center">
-  <img src="https://files.catbox.moe/ru1n9w.jpg" width="300"/>
+  <img src="https://files.catbox.moe/ru1n9w.jpg" width="200"/>
 </p>
 
 <p align="center">
@@ -38,14 +38,14 @@ Inatumia API kuleta taarifa za movie kama:
 
 ## 📸 Preview
 <p align="center">
-  <img src="https://i.imgur.com/2DhmtJ4.png" width="300"/>
+  <img src="https://files.catbox.moe/02y32h.image" width="300"/>
 </p>
 
 ---
 
 ## 🔗 Connect With Me
 <p align="center">
-  <a href="#"><img src="https://files.catbox.moe/lkh9mv.image"/></a>
+  <a href="#"><img src="https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white"/></a>
   <a href="#"><img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white"/></a>
 </p>
 
