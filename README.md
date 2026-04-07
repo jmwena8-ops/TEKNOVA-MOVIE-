@@ -45,7 +45,7 @@ Inatumia API kuleta taarifa za movie kama:
 
 ## 🔗 Connect With Me
 <p align="center">
-  <a href="#"><img src="https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white"/></a>
+  <a href="#"><img src="https://files.catbox.moe/lkh9mv.image"/></a>
   <a href="#"><img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white"/></a>
 </p>
 
