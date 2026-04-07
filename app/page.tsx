@@ -1,117 +1,112 @@
 import { Suspense } from "react";
 import { Header } from "@/components/header";
 import { Hero } from "@/components/hero";
-import { Filters } from "@/components/filters";
 import { MovieGrid } from "@/components/movie-grid";
-import { Pagination } from "@/components/pagination";
 import { Footer } from "@/components/footer";
-import {
-  discoverMovies,
-  discoverTVShows,
-  searchMovies,
-  searchTVShows,
-  getMovieGenres,
-  getTVGenres,
-} from "@/lib/tmdb";
+import { searchMovies, getFeaturedMovies } from "@/lib/omdb";
+import type { OMDbMovie } from "@/lib/types";
 
 interface PageProps {
   searchParams: Promise<{
-    type?: string;
-    page?: string;
-    year?: string;
-    genre?: string;
-    language?: string;
     search?: string;
+    page?: string;
   }>;
 }
 
 async function MoviesContent({ searchParams }: { searchParams: PageProps["searchParams"] }) {
   const params = await searchParams;
-  const type = params.type || "all";
-  const page = parseInt(params.page || "1", 10);
-  const year = params.year || "";
-  const genre = params.genre || "";
-  const language = params.language || "";
   const search = params.search || "";
+  const page = parseInt(params.page || "1", 10);
 
-  // Fetch genres for filters
-  const [movieGenresData, tvGenresData] = await Promise.all([
-    getMovieGenres(),
-    getTVGenres(),
-  ]);
-
-  let movies: Awaited<ReturnType<typeof discoverMovies>>["results"] = [];
-  let tvShows: Awaited<ReturnType<typeof discoverTVShows>>["results"] = [];
-  let totalPages = 1;
+  let movies: OMDbMovie[] = [];
+  let totalResults = 0;
+  let error = "";
 
   try {
     if (search) {
       // Search mode
-      if (type === "all" || type === "movie") {
-        const movieResults = await searchMovies(search, page);
-        movies = movieResults.results;
-        totalPages = Math.max(totalPages, movieResults.total_pages);
-      }
-      if (type === "all" || type === "tv") {
-        const tvResults = await searchTVShows(search, page);
-        tvShows = tvResults.results;
-        totalPages = Math.max(totalPages, tvResults.total_pages);
+      const result = await searchMovies(search, page);
+      if (result.Response === "True" && result.Search) {
+        movies = result.Search;
+        totalResults = parseInt(result.totalResults || "0", 10);
+      } else {
+        error = result.Error || "No movies found";
       }
     } else {
-      // Discover mode with filters
-      const filterParams = {
-        page,
-        year,
-        with_genres: genre,
-        with_original_language: language,
-      };
-
-      if (type === "all" || type === "movie") {
-        const movieResults = await discoverMovies(filterParams);
-        movies = movieResults.results;
-        totalPages = Math.max(totalPages, movieResults.total_pages);
-      }
-      if (type === "all" || type === "tv") {
-        const tvResults = await discoverTVShows(filterParams);
-        tvShows = tvResults.results;
-        totalPages = Math.max(totalPages, tvResults.total_pages);
-      }
+      // Show featured movies on homepage
+      movies = await getFeaturedMovies();
     }
-  } catch (error) {
-    console.error("Error fetching data:", error);
+  } catch (err) {
+    console.error("Error fetching data:", err);
+    error = "Failed to fetch movies. Please try again.";
   }
+
+  const totalPages = Math.ceil(totalResults / 10);
 
   return (
     <>
-      {/* Filters */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
-        <Suspense fallback={<div className="h-24 bg-[var(--card)] rounded-xl animate-pulse" />}>
-          <Filters
-            movieGenres={movieGenresData.genres}
-            tvGenres={tvGenresData.genres}
-          />
-        </Suspense>
-      </section>
-
       {/* Search Results Title */}
       {search && (
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
           <h2 className="text-2xl font-bold text-[var(--foreground)]">
             Search results for: <span className="text-[var(--primary)]">{`"${search}"`}</span>
+            {totalResults > 0 && (
+              <span className="text-[var(--muted-foreground)] text-lg font-normal ml-2">
+                ({totalResults} results)
+              </span>
+            )}
           </h2>
+        </section>
+      )}
+
+      {!search && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
+          <h2 className="text-2xl font-bold text-[var(--foreground)]">
+            Popular Movies
+          </h2>
+          <p className="text-[var(--muted-foreground)] mt-1">
+            Search for any movie to find trailers and details
+          </p>
+        </section>
+      )}
+
+      {/* Error Message */}
+      {error && movies.length === 0 && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
+          <div className="bg-[var(--card)] border border-[var(--border)] rounded-xl p-6 text-center">
+            <p className="text-[var(--muted-foreground)]">{error}</p>
+          </div>
         </section>
       )}
 
       {/* Movie Grid */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <MovieGrid
-          movies={movies}
-          tvShows={tvShows}
-          type={type as "movie" | "tv" | "all"}
-        />
+        <MovieGrid movies={movies} />
 
         {/* Pagination */}
-        <Pagination currentPage={page} totalPages={totalPages} />
+        {search && totalPages > 1 && (
+          <div className="flex justify-center items-center gap-4 mt-8">
+            {page > 1 && (
+              <a
+                href={`/?search=${encodeURIComponent(search)}&page=${page - 1}`}
+                className="px-4 py-2 bg-[var(--secondary)] hover:bg-[var(--muted)] text-[var(--foreground)] rounded-lg transition-colors"
+              >
+                Previous
+              </a>
+            )}
+            <span className="text-[var(--muted-foreground)]">
+              Page {page} of {totalPages}
+            </span>
+            {page < totalPages && (
+              <a
+                href={`/?search=${encodeURIComponent(search)}&page=${page + 1}`}
+                className="px-4 py-2 bg-[var(--secondary)] hover:bg-[var(--muted)] text-[var(--foreground)] rounded-lg transition-colors"
+              >
+                Next
+              </a>
+            )}
+          </div>
+        )}
       </section>
     </>
   );
@@ -120,8 +115,8 @@ async function MoviesContent({ searchParams }: { searchParams: PageProps["search
 function LoadingSkeleton() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      {/* Filters skeleton */}
-      <div className="h-24 bg-[var(--card)] rounded-xl animate-pulse mb-8" />
+      {/* Title skeleton */}
+      <div className="h-8 bg-[var(--card)] rounded-lg animate-pulse mb-6 w-64" />
       
       {/* Grid skeleton */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 lg:gap-6">

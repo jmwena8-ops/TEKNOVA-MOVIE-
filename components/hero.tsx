@@ -1,6 +1,23 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { SearchIcon } from "./icons";
 
 export function Hero() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const router = useRouter();
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/?search=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
+
+  const popularSearches = ["Avengers", "Batman", "Star Wars", "Spider-Man", "Marvel"];
+
   return (
     <section className="relative overflow-hidden pt-20 lg:pt-24">
       {/* Background with gradient */}
@@ -23,33 +40,48 @@ export function Hero() {
 
           {/* Headline */}
           <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-[var(--foreground)] mb-4 max-w-4xl text-balance">
-            Stream & Download <span className="gradient-text">Movies</span> and{" "}
-            <span className="gradient-text">Series</span>
+            Search & Watch <span className="gradient-text">Movie Trailers</span>
           </h1>
 
           {/* Subheadline */}
           <p className="text-lg lg:text-xl text-[var(--muted-foreground)] max-w-2xl mb-8 text-balance">
-            Your ultimate destination for entertainment. Watch the latest movies and TV shows from around the world, anytime, anywhere.
+            Find any movie, view details, ratings, and watch trailers on YouTube. Your ultimate movie discovery platform.
           </p>
 
-          {/* Stats */}
-          <div className="flex flex-wrap items-center justify-center gap-8 lg:gap-12">
-            <div className="text-center">
-              <p className="text-2xl lg:text-3xl font-bold text-[var(--primary)]">10K+</p>
-              <p className="text-sm text-[var(--muted-foreground)]">Movies</p>
+          {/* Search Box */}
+          <form onSubmit={handleSearch} className="w-full max-w-2xl mb-6">
+            <div className="relative flex gap-2">
+              <div className="relative flex-1">
+                <input
+                  type="text"
+                  placeholder="Search for any movie..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full px-6 py-4 pl-12 rounded-xl bg-[var(--card)] text-[var(--foreground)] placeholder:text-[var(--muted-foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] text-lg border border-[var(--border)]"
+                />
+                <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[var(--muted-foreground)]" />
+              </div>
+              <button
+                type="submit"
+                className="px-8 py-4 bg-[var(--primary)] hover:bg-[var(--accent)] text-white rounded-xl font-semibold transition-colors text-lg"
+              >
+                Search
+              </button>
             </div>
-            <div className="text-center">
-              <p className="text-2xl lg:text-3xl font-bold text-[var(--accent)]">5K+</p>
-              <p className="text-sm text-[var(--muted-foreground)]">TV Series</p>
-            </div>
-            <div className="text-center">
-              <p className="text-2xl lg:text-3xl font-bold text-[var(--primary)]">50+</p>
-              <p className="text-sm text-[var(--muted-foreground)]">Countries</p>
-            </div>
-            <div className="text-center">
-              <p className="text-2xl lg:text-3xl font-bold text-[var(--accent)]">HD</p>
-              <p className="text-sm text-[var(--muted-foreground)]">Quality</p>
-            </div>
+          </form>
+
+          {/* Popular Searches */}
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            <span className="text-[var(--muted-foreground)] text-sm">Popular:</span>
+            {popularSearches.map((term) => (
+              <button
+                key={term}
+                onClick={() => router.push(`/?search=${encodeURIComponent(term)}`)}
+                className="px-3 py-1 bg-[var(--secondary)] hover:bg-[var(--muted)] text-[var(--foreground)] rounded-full text-sm transition-colors"
+              >
+                {term}
+              </button>
+            ))}
           </div>
         </div>
       </div>

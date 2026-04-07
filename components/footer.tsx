@@ -18,7 +18,7 @@ export function Footer() {
               />
             </Link>
             <p className="text-[var(--muted-foreground)] text-sm max-w-md">
-              Your ultimate destination for streaming and downloading movies and TV series from around the world. Enjoy unlimited entertainment in HD quality.
+              Your ultimate movie discovery platform. Search any movie, view details, ratings, cast info, and watch trailers on YouTube.
             </p>
           </div>
 
@@ -27,23 +27,23 @@ export function Footer() {
             <h3 className="text-[var(--foreground)] font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/?type=movie" className="text-[var(--muted-foreground)] hover:text-[var(--primary)] transition-colors text-sm">
-                  Movies
+                <Link href="/" className="text-[var(--muted-foreground)] hover:text-[var(--primary)] transition-colors text-sm">
+                  Home
                 </Link>
               </li>
               <li>
-                <Link href="/?type=tv" className="text-[var(--muted-foreground)] hover:text-[var(--primary)] transition-colors text-sm">
-                  TV Series
-                </Link>
-              </li>
-              <li>
-                <Link href="/?year=2026" className="text-[var(--muted-foreground)] hover:text-[var(--primary)] transition-colors text-sm">
+                <Link href="/?search=2024" className="text-[var(--muted-foreground)] hover:text-[var(--primary)] transition-colors text-sm">
                   New Releases
                 </Link>
               </li>
               <li>
-                <Link href="/" className="text-[var(--muted-foreground)] hover:text-[var(--primary)] transition-colors text-sm">
-                  Top Rated
+                <Link href="/?search=marvel" className="text-[var(--muted-foreground)] hover:text-[var(--primary)] transition-colors text-sm">
+                  Marvel Movies
+                </Link>
+              </li>
+              <li>
+                <Link href="/?search=dc" className="text-[var(--muted-foreground)] hover:text-[var(--primary)] transition-colors text-sm">
+                  DC Movies
                 </Link>
               </li>
             </ul>
@@ -51,26 +51,26 @@ export function Footer() {
 
           {/* Genres */}
           <div>
-            <h3 className="text-[var(--foreground)] font-semibold mb-4">Popular Genres</h3>
+            <h3 className="text-[var(--foreground)] font-semibold mb-4">Popular Searches</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/?genre=28" className="text-[var(--muted-foreground)] hover:text-[var(--primary)] transition-colors text-sm">
-                  Action
+                <Link href="/?search=action" className="text-[var(--muted-foreground)] hover:text-[var(--primary)] transition-colors text-sm">
+                  Action Movies
                 </Link>
               </li>
               <li>
-                <Link href="/?genre=35" className="text-[var(--muted-foreground)] hover:text-[var(--primary)] transition-colors text-sm">
-                  Comedy
+                <Link href="/?search=comedy" className="text-[var(--muted-foreground)] hover:text-[var(--primary)] transition-colors text-sm">
+                  Comedy Movies
                 </Link>
               </li>
               <li>
-                <Link href="/?genre=18" className="text-[var(--muted-foreground)] hover:text-[var(--primary)] transition-colors text-sm">
-                  Drama
+                <Link href="/?search=horror" className="text-[var(--muted-foreground)] hover:text-[var(--primary)] transition-colors text-sm">
+                  Horror Movies
                 </Link>
               </li>
               <li>
-                <Link href="/?genre=27" className="text-[var(--muted-foreground)] hover:text-[var(--primary)] transition-colors text-sm">
-                  Horror
+                <Link href="/?search=thriller" className="text-[var(--muted-foreground)] hover:text-[var(--primary)] transition-colors text-sm">
+                  Thriller Movies
                 </Link>
               </li>
             </ul>
@@ -82,17 +82,9 @@ export function Footer() {
           <p className="text-[var(--muted-foreground)] text-sm text-center sm:text-left">
             &copy; {new Date().getFullYear()} TEKNOVA MOVIE. All rights reserved.
           </p>
-          <div className="flex items-center gap-6">
-            <Link href="#" className="text-[var(--muted-foreground)] hover:text-[var(--primary)] transition-colors text-sm">
-              Privacy Policy
-            </Link>
-            <Link href="#" className="text-[var(--muted-foreground)] hover:text-[var(--primary)] transition-colors text-sm">
-              Terms of Service
-            </Link>
-            <Link href="#" className="text-[var(--muted-foreground)] hover:text-[var(--primary)] transition-colors text-sm">
-              Contact
-            </Link>
-          </div>
+          <p className="text-[var(--muted-foreground)] text-xs text-center">
+            Powered by OMDb API. Trailers from YouTube.
+          </p>
         </div>
       </div>
     </footer>

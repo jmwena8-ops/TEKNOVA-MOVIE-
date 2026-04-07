@@ -1,43 +1,28 @@
-import type { Movie, TVShow } from "@/lib/types";
+"use client";
+
+import { useState } from "react";
+import type { OMDbMovie } from "@/lib/types";
 import { MovieCard } from "./movie-card";
+import { MovieModal } from "./movie-modal";
 
 interface MovieGridProps {
-  movies: Movie[];
-  tvShows: TVShow[];
-  type: "movie" | "tv" | "all";
+  movies: OMDbMovie[];
 }
 
-export function MovieGrid({ movies, tvShows, type }: MovieGridProps) {
-  const items: Array<{ item: Movie | TVShow; mediaType: "movie" | "tv" }> = [];
+export function MovieGrid({ movies }: MovieGridProps) {
+  const [selectedMovieId, setSelectedMovieId] = useState<string | null>(null);
 
-  if (type === "all" || type === "movie") {
-    movies.forEach((movie) => {
-      items.push({ item: movie, mediaType: "movie" });
-    });
-  }
-
-  if (type === "all" || type === "tv") {
-    tvShows.forEach((show) => {
-      items.push({ item: show, mediaType: "tv" });
-    });
-  }
-
-  // Sort by popularity when showing all
-  if (type === "all") {
-    items.sort((a, b) => b.item.popularity - a.item.popularity);
-  }
-
-  if (items.length === 0) {
+  if (movies.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-20 text-center">
-        <div className="w-20 h-20 mb-4 rounded-full bg-[var(--secondary)] flex items-center justify-center">
+        <div className="w-24 h-24 mb-6 rounded-full bg-[var(--secondary)] flex items-center justify-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-10 h-10 text-[var(--muted-foreground)]"
+            className="w-12 h-12 text-[var(--muted-foreground)]"
           >
             <path
               strokeLinecap="round"
@@ -46,21 +31,32 @@ export function MovieGrid({ movies, tvShows, type }: MovieGridProps) {
             />
           </svg>
         </div>
-        <h3 className="text-xl font-semibold text-[var(--foreground)] mb-2">
-          No results found
-        </h3>
+        <h3 className="text-xl font-semibold text-[var(--foreground)] mb-2">No movies found</h3>
         <p className="text-[var(--muted-foreground)] max-w-md">
-          Try adjusting your filters or search terms to find what you are looking for.
+          Try searching for a different movie or check your spelling.
         </p>
       </div>
     );
   }
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 lg:gap-6">
-      {items.map(({ item, mediaType }) => (
-        <MovieCard key={`${mediaType}-${item.id}`} item={item} mediaType={mediaType} />
-      ))}
-    </div>
+    <>
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 lg:gap-6">
+        {movies.map((movie) => (
+          <MovieCard
+            key={movie.imdbID}
+            movie={movie}
+            onClick={() => setSelectedMovieId(movie.imdbID)}
+          />
+        ))}
+      </div>
+
+      {/* Movie Modal */}
+      <MovieModal
+        imdbId={selectedMovieId || ""}
+        isOpen={!!selectedMovieId}
+        onClose={() => setSelectedMovieId(null)}
+      />
+    </>
   );
 }
