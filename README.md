@@ -51,4 +51,4 @@ Inatumia API kuleta taarifa za movie kama:
 
 ---
 
-<p align="center">🔥 Built by TEKNOVA MD 🔥</p>
+<p align="center">🔥 Built by TEKNOVA TECH 🔥</p>
