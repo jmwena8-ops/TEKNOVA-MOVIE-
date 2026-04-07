@@ -1,4 +1,4 @@
-<h1 align="center">🎬 TEKNOVA MOVIE 🍿</h1>
+9<h1 align="center">🎬 TEKNOVA MOVIE 🍿</h1>
 
 <p align="center">
   <img src="https://files.catbox.moe/ru1n9w.jpg" width="200"/>
@@ -38,7 +38,7 @@ Inatumia API kuleta taarifa za movie kama:
 
 ## 📸 Preview
 <p align="center">
-  <img src="https://files.catbox.moe/02y32h.image" width="300"/>
+  <img src="https://i.ibb.co/3W0bYQp/teknova-tech-logo.png" width="300"/>
 </p>
 
 ---
