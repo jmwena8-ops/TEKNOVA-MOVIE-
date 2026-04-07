@@ -38,7 +38,7 @@ Inatumia API kuleta taarifa za movie kama:
 
 ## 📸 Preview
 <p align="center">
-  <img src="https://i.ibb.co/3W0bYQp/teknova-tech-logo.png" width="300"/>
+  <img src="https://files.catbox.moe/emk1np.image" width="300"/>
 </p>
 
 ---
