@@ -49,7 +49,7 @@ Inatumia API kuleta taarifa za movie kama:
 
 # 📸 PREVIEW
 <p align="center">
-  <img src="https://images.unsplash.com/photo-1592478411213-6153e4ebc07d" width="400"/>
+  <img src="https://files.catbox.moe/b622rg.image" width="400"/>
 </p>
 
 ---
