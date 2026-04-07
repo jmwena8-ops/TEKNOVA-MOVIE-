@@ -1,7 +1,7 @@
 <h1 align="center">🎬 TEKNOVA MOVIE 🍿</h1>
 
 <p align="center">
-  <img src="https://i.ibb.co/8r1xYpG/teknova-movie-logo.png" width="300"/>
+  <img src="https://files.catbox.moe/ru1n9w.jpg" width="300"/>
 </p>
 
 <p align="center">
