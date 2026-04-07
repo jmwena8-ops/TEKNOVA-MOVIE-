@@ -49,7 +49,7 @@ Inatumia API kuleta taarifa za movie kama:
 
 # 📸 PREVIEW
 <p align="center">
-  <img src="https://raw.githubusercontent.com/github/explore/main/topics/artificial-intelligence/artificial-intelligence.png" width="400"/>
+  <img src="https://raw.githubusercontent.com/jmwena8-ops/TEKNOVA-MOVIE-/main/teknova-tech.jpg" width="400"/>
 </p>
 
 ---
