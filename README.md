@@ -1,7 +1,7 @@
 <h1 align="center">🎬 TEKNOVA MOVIE 🍿</h1>
 
 <p align="center">
-  <img src="https://images.unsplash.com/photo-1608889175123-8ee362201f81" width="300"/>
+  <img src="https://i.ibb.co/8r1xYpG/teknova-movie-logo.png" width="300"/>
 </p>
 
 <p align="center">
@@ -38,7 +38,7 @@ Inatumia API kuleta taarifa za movie kama:
 
 ## 📸 Preview
 <p align="center">
-  <img src="https://images.unsplash.com/photo-1592478411213-6153e4ebc07d" width="300"/>
+  <img src="https://i.imgur.com/2DhmtJ4.png" width="300"/>
 </p>
 
 ---
